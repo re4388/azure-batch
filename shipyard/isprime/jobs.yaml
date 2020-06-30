@@ -1,0 +1,6 @@
+job_specifications:
+- id: isprime
+  tasks:
+  - docker_image: cr0615.azurecr.io/cr0615/is_prime
+    resource_files:
+    command: python /is_prime.py 89

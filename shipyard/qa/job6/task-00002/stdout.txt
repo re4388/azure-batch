@@ -1,0 +1,20 @@
+Fetching papers (0/10) ...
+Abstract num. : 8
+crawl finshed
+Starting find answer by reading all fetched papers ...
+Analyzing papers (0%) ...
+Finding important papers ...
+Summarizing answers ...
+Translating summary ...
+Done
+(       PMID  ...  Confident
+0  32550703  ...  10.030838
+1  32550707  ...   9.121436
+2  32550704  ...   8.055792
+3  32550705  ...   7.910014
+4  32550701  ...   7.059132
+5  32550670  ...   4.776557
+6  32550702  ...   3.445928
+7  32550706  ...   1.627470
+
+[8 rows x 5 columns], {'EN': " Covid-19 pandemic has radically changed the way of life around the world. Urology services have developed strategies to prioritize and not to differ urgent and oncological patient's medical attention. Until now, there is not enough evidence to recommend any specific anti-covid19 treatment.", 'TW': 'Covid-19大流行已經從根本上改變了世界各地的生活方式。泌尿外科服務制定戰略，優先考慮，而不是不同的迫切和腫瘤病人的醫療照顧。到現在為止，還沒有足夠的證據來推薦任何特定的抗covid19治療。', 'CN': 'Covid-19大流行已经从根本上改变了世界各地的生活方式。泌尿外科服务制定战略，优先考虑，而不是不同的迫切和肿瘤病人的医疗照顾。到现在为止，还没有足够的证据来推荐任何特定的抗covid19治疗。', 'JP': 'Covid-19パンデミックは根本世界中の生き方を変えました。泌尿器サービスは、緊急かつ腫瘍学患者の医師の診察を異なるために優先しないための戦略を開発しました。今までは、任意の特定の抗covid19治療をお勧めするのに十分な証拠がありません。', 'KO': 'Covid-19 대유행은 근본적으로 세계의 삶의 방식을 변경했습니다. 비뇨기과 서비스는 긴급 및 종양 환자의 치료를 다르게 우선 순위를하지 않는 전략을 개발했습니다. 지금까지 특정 안티 covid19 처리를 추천 할 수있는 충분한 증거가되지 않습니다.'})

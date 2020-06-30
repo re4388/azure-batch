@@ -1,0 +1,140 @@
+pool_specification:
+  id: batch-shipyard-pool
+  vm_configuration:
+    platform_image:
+      publisher: Canonical
+      offer: UbuntuServer
+      sku: 16.04-LTS
+      version: latest
+      native: false
+      license_type: null
+    custom_image:
+      arm_image_id: /subscriptions/<subscription_id>/resourceGroups/<resource_group>/providers/Microsoft.Compute/galleries/<gallery_name>/images/<image_name>/versions/<version>
+      node_agent: <node agent sku id>
+      native: false
+      license_type: null
+  vm_size: STANDARD_D2_V2
+  vm_count:
+    dedicated: 4
+    low_priority: 8
+  max_tasks_per_node: 1
+  resize_timeout: 00:20:00
+  node_fill_type: pack
+  autoscale:
+    evaluation_interval: 00:15:00
+    scenario:
+      name: active_tasks
+      maximum_vm_count:
+        dedicated: 16
+        low_priority: 8
+      maximum_vm_increment_per_evaluation:
+        dedicated: 4
+        low_priority: -1
+      node_deallocation_option: taskcompletion
+      sample_lookback_interval: 00:10:00
+      required_sample_percentage: 70
+      bias_last_sample: true
+      bias_node_type: low_priority
+      rebalance_preemption_percentage: 50
+      time_ranges:
+        weekdays:
+          start: 1
+          end: 5
+        work_hours:
+          start: 8
+          end: 17
+    formula: null
+  inter_node_communication_enabled: false
+  per_job_auto_scratch: false
+  reboot_on_start_task_failed: false
+  attempt_recovery_on_unusable: false
+  upload_diagnostics_logs_on_unusable: true
+  block_until_all_global_resources_loaded: true
+  transfer_files_on_pool_creation: false
+  input_data:
+    azure_batch:
+    - destination: $AZ_BATCH_NODE_SHARED_DIR/jobonanotherpool
+      exclude:
+      - '*.txt'
+      include:
+      - wd/*.dat
+      job_id: jobonanotherpool
+      task_id: mytask
+    azure_storage:
+    - storage_account_settings: mystorageaccount
+      remote_path: poolcontainer/dir
+      local_path: $AZ_BATCH_NODE_SHARED_DIR/pooldata
+      is_file_share: false
+      exclude:
+      - '*.tmp'
+      include:
+      - pooldata*.bin
+      blobxfer_extra_options: null
+  resource_files:
+  - blob_source: https://some.url
+    file_mode: '0750'
+    file_path: path/in/wd/file.bin
+  ssh:
+    username: shipyard
+    expiry_days: 30
+    ssh_public_key: /path/to/rsa/publickey.pub
+    ssh_public_key_data: ssh-rsa ...
+    ssh_private_key: /path/to/rsa/privatekey
+    generate_docker_tunnel_script: true
+    generated_file_export_path:
+    hpn_server_swap: false
+    allow_docker_access: false
+  rdp:
+    username: shipyard
+    password: null
+    expiry_days: 30
+  remote_access_control:
+    starting_port: 49000
+    allow:
+    - 1.2.3.4
+    deny:
+    - '*'
+  virtual_network:
+    arm_subnet_id: /subscriptions/<subscription_id>/resourceGroups/<resource_group>/providers/Microsoft.Network/virtualNetworks/<virtual_network_name>/subnets/<subnet_name>
+    name: myvnet
+    resource_group: resource-group-of-vnet
+    create_nonexistant: false
+    address_space: 10.0.0.0/16
+    subnet:
+      name: subnet-for-batch-vms
+      address_prefix: 10.0.0.0/20
+  public_ips:
+  - /subscriptions/<subscription_id>/resourceGroups/<resource_group>/providers/Microsoft.Network/publicIPAddresses/<public_ip_name1>
+  - /subscriptions/<subscription_id>/resourceGroups/<resource_group>/providers/Microsoft.Network/publicIPAddresses/<public_ip_name2>
+  certificates:
+    sha1-thumbprint:
+      visibility:
+      - task
+      - start_task
+      - remote_user
+  additional_node_prep:
+    commands:
+      pre: []
+      post: []
+    environment_variables:
+      abc: xyz
+    environment_variables_keyvault_secret_id: https://myvault.vault.azure.net/secrets/nodeprepenv
+  gpu:
+    nvidia_driver:
+      source: https://some.url
+    ignore_warnings: false
+  batch_insights_enabled: false
+  prometheus:
+    node_exporter:
+      enabled: false
+      port: 9100
+      options: []
+    cadvisor:
+      enabled: false
+      port: 8080
+      options: []
+  container_runtimes:
+    install:
+      - kata_containers
+      - singularity
+    default: null
